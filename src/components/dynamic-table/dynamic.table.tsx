@@ -1,55 +1,88 @@
-import React, { Component } from 'react';
-import DataTable from './interfaces/data.table';
+import { Component } from 'react';
+import DataSet from './interfaces/data.table';
 import DynamicTableProps from './interfaces/dynamic.table.props';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './dynamic.table.css';
+import RatinScale from '../rating/rating.scale';
 
-class DynamicTable extends Component<DynamicTableProps, DataTable> {
+class DynamicTable extends Component<DynamicTableProps, {data: {}}> {
   constructor(props: DynamicTableProps) {
     super(props);
     this.state = {
-      data: [],
+        data: Object
     };
   }
 
+  /**
+   * 
+   */
   componentDidMount() {
     this.fetchData();
   }
 
+  /**
+   * 
+   */
   fetchData() {
     fetch(this.props.url)
       .then((response) => response.json())
       .then((json) => {
-        this.setState({ data: json });
+        this.setState({ data: json.toplists });
       })
   }
 
+  /**
+   * 
+   * @returns 
+   */
   render() {
-    const { data } = this.state;
+    const data = this.state.data as any;
 
     return (
         <div id="json-table">
-            {data.map((item) => (
-                <div key={item.brand_id}>
-                    <div>
-                        <img src="{item.logo}" alt="{item.logo}" />
-                    </div>
-                    <div>
-                        {item.info.rating}
-                    </div>
-                    <div>
-                        <div>{item.info.features[0]}</div>
-                        <div>{item.info.features[1]}</div>
-                        <div>{item.info.features[2]}</div>
-                    </div>
-                    <div>
-                        <div>
-                            <button>Play Now</button>
+            
+            {/* TODO: Get all keys from group */}
+            {Object.keys(data).map((key: string) => (
+
+                // TODO: Get list from key group
+                data[key].map((item: DataSet) => (
+                    <div className={'row box-item align-items-center'} key={item.brand_id}>
+                        <div className={'col-lg-4 text-center'}>
+                            <img src={item.logo} alt={item.logo} />
                         </div>
-                        <div>
-                            <a href="#">T&C Apply</a>
+
+                        <div className={'col-lg-3 text-center'}>
+                            <RatinScale maxRating={5} rating={item.info.rating} index={parseInt(item.brand_id)} />
+                        </div>
+
+                        <div className={'col-lg-3'}>
+                            <ul>
+                                <li>{item.info.features[0]}</li>
+                                <li>{item.info.features[1]}</li>
+                                <li>{item.info.features[2]}</li>
+                            </ul>
+                        </div>
+                        
+                        <div className={'col-lg-2 text-center'}>
+                            <div className={'h-50'}>
+                                <button type="button" className={'btn btn-success'}>Play Now</button>
+                            </div>
+                            <div className={'h-50'}>
+                                <a href="#">T&C Apply</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                ))
+                // end: Get list from key group
+
             ))}
+            {/* end: Get all keys from group */}
+            
+            <div className='row load-more'>
+                <div className="col-lg-12 text-center">
+                <button type="button" className={'btn btn-success font-bold'}>Load More</button>
+                </div>
+            </div>
         </div>
       );
   }
