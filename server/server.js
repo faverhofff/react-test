@@ -1,13 +1,16 @@
 const express = require('express');
+const path = require('path');
 const { filter, paginate, getHashMap, response } = require('./helpers');
 const fs = require('fs');
 
 const app = express();
-let jsonData = {};
+let jsonData = true;
 let hashMap = new Map();
 
+const directoryPath = path.dirname(__filename);
+
 // load json data
-fs.readFile('./data.json', 'utf8', (err, data) => {
+fs.readFile(`${directoryPath}/data.json`, 'utf8', (err, data) => {
     if (err) {
       jsonData = false;
       return;
@@ -16,11 +19,6 @@ fs.readFile('./data.json', 'utf8', (err, data) => {
     try { 
         const json = JSON.parse(data); 
         hashMap = getHashMap(json.data.toplists);
-
-        // const filteredData = filter('575', hashMap).sort((a, b) => a['position'] - b['position']);
-        
-        // const paginatedData = paginate(filteredData, 2, 3);
-        // console.log(paginatedData);
     }
     catch (error) { 
         jsonData = false 
@@ -53,7 +51,7 @@ app.get('/:key/:page', (req, res) => {
 
 });
 
-const port = 3000;
+const port =3004
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
