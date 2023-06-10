@@ -1,0 +1,25 @@
+version: '2'
+services:
+  server:
+    build:
+      context: ./server/
+    command: node src/server.js
+    volumes:
+      - ./server/:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - "3004:3004"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+  frontend:
+    build:
+      context: ./frontend/
+    command: npm start
+    volumes:
+      - ./frontend/:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
