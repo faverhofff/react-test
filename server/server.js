@@ -51,7 +51,12 @@ app.get('/:key/:page', (req, res) => {
 
 });
 
-const port =3004
+// let port;
+// if (process.env.NODE_ENV === 'development') {
+// } else if (process.env.NODE_ENV === 'production') {
+//   dotenv.config({ path: '.env.production' });
+// }
+const port = 3004
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
 });

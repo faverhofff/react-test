@@ -1,15 +1,15 @@
 import { Component } from 'react';
-import DataSet from './interfaces/data.table';
+import { DataSet, DataSetStruct } from './interfaces/data.table';
 import DynamicTableProps from './interfaces/dynamic.table.props';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './dynamic.table.css';
 import RatinScale from '../rating/rating.scale';
 
-class DynamicTable extends Component<DynamicTableProps, {data: {}}> {
+class DynamicTable extends Component<DynamicTableProps, {data: DataSetStruct}> {
   constructor(props: DynamicTableProps) {
     super(props);
     this.state = {
-        data: Object
+        data: {}
     };
   }
 
@@ -20,14 +20,16 @@ class DynamicTable extends Component<DynamicTableProps, {data: {}}> {
     this.fetchData();
   }
 
+
+
   /**
    * 
    */
   fetchData() {
     fetch(this.props.url)
       .then((response) => response.json())
-      .then((json) => {
-        this.setState({ data: json.toplists });
+      .then((json: DataSetStruct) => {
+        this.setState({ data: json });
       })
   }
 
