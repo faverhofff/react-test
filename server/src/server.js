@@ -1,9 +1,14 @@
 const express = require('express');
 const path = require('path');
-const { filter, paginate, getHashMap, response } = require('./helpers');
+const cors = require('cors');
 const fs = require('fs');
+const { filter, paginate, getHashMap, response } = require('./helpers');
 
 const app = express();
+
+// Habilitar CORS para todas las solicitudes
+app.use(cors());
+
 let jsonData = true;
 let hashMap = new Map();
 
