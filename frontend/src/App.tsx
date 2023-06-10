@@ -6,7 +6,7 @@ function App(): JSX.Element {
       <h1>table</h1>
 
       <div className="container">
-        <DynamicTable url="http://localhost:3004/575/1" />
+        <DynamicTable />
       </div> 
 
     </div>
