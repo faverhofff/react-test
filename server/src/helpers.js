@@ -46,7 +46,7 @@ function getHashMap(json) {
  function response(res, json, status = 200) {
     res.statusCode = status;
     res.setHeader('Content-Type', 'application/json');
-    res.end(`{data: ${json}}`);
+    res.end(`{"data": ${json}}`);
 }
 
 module.exports = {filter, paginate, getHashMap, response};
