@@ -7,10 +7,6 @@ export interface DataSet {
     play_url: string
 }
 
-export interface DataSetStruct {
-    [key: string]: DataSet;
-}
-
 export interface ItemInfo {
     rating: number
     features: Array<string>
