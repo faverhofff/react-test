@@ -33,7 +33,7 @@ fs.readFile(`${directoryPath}/data.json`, 'utf8', (err, data) => {
 
 // Ruta de paginación para obtener una porción del contenido del JSON
 app.get('/:key/:page', (req, res) => {
-  const page = parseInt(req.params.page, 1) || 1;
+  const page = parseInt(req.params.page) || 1;
   const key = req.params.key;
 
     if (!jsonData) {
