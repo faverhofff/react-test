@@ -6,7 +6,7 @@ FROM node:18.0.0-alpine as frontend
 WORKDIR /usr/app/frontend/
 COPY frontend/package*.json ./
 RUN npm i
-COPY frontend/*.* ./*.*
+COPY frontend/ ./
 RUN npm run build
 
 
