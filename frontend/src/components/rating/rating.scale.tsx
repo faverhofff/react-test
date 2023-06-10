@@ -14,10 +14,10 @@ class RatinScale extends Component<RatingScaleProps> {
    * @returns 
    */
   render() {
-    const {maxRating, rating, index} = this.props;
+    const {maxRating, rating} = this.props;
 
     return (
-        <div key={index} className={'ratings'}>
+        <div key={Date.now()} className={'ratings'}>
             {Array.from(Array(maxRating)
                   .keys())
                   .map((_index) => (
