@@ -15,7 +15,7 @@ RUN npm run build
 FROM node:18.0.0-alpine
 
 WORKDIR /usr/app/
-COPY --from=frontend /usr/app/frontend/build/ ./frontend/build/
+COPY --from=frontend /usr/app/frontend/ ./frontend/
 
 WORKDIR /usr/app/server/
 COPY server/package*.json ./
